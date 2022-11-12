@@ -1,10 +1,12 @@
 //*react 라이브러리에서 React와 react 컴포넌트라는 클래스도 가져오기*/
 import React, { useState } from "react";
-import List from "./components/List";
+import Lists from "./components/Lists";
 import "./App.css";
 import Form from "./components/Form";
 
 export default function App() {
+  console.log("App is rendering");
+
   const [todoData, setTodoData] = useState([]);
   const [value, setValue] = useState("");
 
@@ -27,17 +29,28 @@ export default function App() {
     setValue(""); // value:''하면 안에 내용 없어짐, 이거 따로 빼줌
   };
 
+  //** 클릭된 X 리스트(id가 같은 데이터) 지우는 함수 (filter)  */
+  const handleClick = (id) => {
+    //**this.todoData가 아니라 this.state.todoData로가 아니라 todoData로 */
+    let newTodoData = todoData.filter((data) => id !== id);
+    //**todoData 갱신 , */
+    setTodoData(newTodoData);
+  };
+
   //******************************************************************/
 
   return (
-    <div className="container">
-      <div className="todoBlock">
-        <div className="title">
+    <div className="flex items-center justify-center w-screen h-screen bg-blue-100">
+      <div className="w-full p-6 m-4 bg-white rounded shadow-lg lg:w-3/4 lg:max-w-lg">
+        <div className="flex justify-between mb-3">
           <h1>할일 목록</h1>
         </div>
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
 
-        <List todoData={todoData} setTodoData={setTodoData} />
+        <Lists
+          todoData={todoData}
+          setTodoData={setTodoData}
+          handleClick={handleClick}
+        />
         <Form value={value} setValue={setValue} handleSubmit={handleSubmit} />
       </div>
     </div>
