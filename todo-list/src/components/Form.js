@@ -2,7 +2,6 @@ import React from "react";
 
 export default function Form({ value, setValue, handleSubmit }) {
   //**이벤트 확인*/
-  console.log("Form Component");
 
   const handleChange = (e) => {
     console.log("e", e);
