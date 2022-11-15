@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 import "./MovieModal.css";
 
 // 프락시 가져오기 저번꺼에 <MovieModal {...movieSelected}  있어서 내용 다 있음
@@ -13,10 +14,15 @@ function MovieModal({
   vote_average,
   setModalOpen,
 }) {
+  const ref = useRef();
+  useOnClickOutside(ref, () => {
+    setModalOpen(false);
+  });
+
   return (
     <div className="presentation">
       <div className="wrapper-modal">
-        <div className="modal">
+        <div className="modal" ref={ref}>
           <span onClick={() => setModalOpen(false)} className="modal-close">
             X
           </span>
